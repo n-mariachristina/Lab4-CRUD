@@ -1,0 +1,32 @@
+{
+  "name": "inventory.github.io",
+  "version": "1.0.0",
+  "description": "Link to Inventory Page: https://n-mariachristina.github.io/inventory.github.io/index.html",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
+    "devstart": "nodemon -e js,ejs,sql,envapp.js",
+    "initdb": "node db/db_init.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/n-mariachristina/inventory.github.io.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/n-mariachristina/inventory.github.io/issues"
+  },
+  "homepage": "https://github.com/n-mariachristina/inventory.github.io#readme",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.7",
+    "express": "^4.17.3",
+    "morgan": "^1.10.0",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}

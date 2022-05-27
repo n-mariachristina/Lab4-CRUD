@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <!-- Materialize CSS and Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link rel="stylesheet" href="/stylesheets/stuffStyle.css">
+
+</head>
+
+<body class="pink lighten-4">
+
+  <div class="container">
+
+    <img class="right vertical-center" src="images/film.png" alt="Film" style="max-width:30%">
+
+    <h1 class="purple-text text-darken-3">Watch List!</h1>
+
+    <a href="/" class="waves-effect cyan darken-1 waves-light btn">
+      Go Back
+      <i class="large material-icons left">chevron_left</i>
+    </a>
+
+    <div class="section"></div>
+
+    <div class="divider purple darken-3"></div>
+
+    <div class="section">
+
+      <!-- Modal Trigger -->
+      <a class="waves-effect cyan darken-1 waves-light btn modal-trigger" href="#addItem">
+        Add Item<i class="large material-icons right">add_circle</i>
+      </a>
+
+      <!-- Modal Structure -->
+      <div id="addItem" class="modal">
+
+        <form method="post" action="/stuff">
+
+          <div class="modal-content">
+
+            <h1 class="cyan-text text-darken-1"
+              style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+              Add:</h1>
+
+            <div class="row">
+
+              <div class="input-field col s12">
+                <i class="material-icons prefix purple-text text-darken-3">star</i>
+                <label for="title">Title</label>
+                <input id="title" name="title" type="text" required>
+              </div>
+
+            </div> <!-- end row 1 -->
+
+            <div class="row">
+
+              <div class="input-field col s4">
+                <i class="material-icons prefix purple-text text-darken-3">star</i>
+                <label for="type">Type</label>
+                <input id="type" name="type" type="text" required>
+              </div>
+
+              <div class="input-field col s4">
+                <i class="material-icons prefix purple-text text-darken-3">star_border</i>
+                <label for="status">
+                  <input id="status" name="status" type="checkbox" class="filled-in" value="1">
+                  <span>Watched?</span>
+                </label>
+              </div>
+
+              <div class="input-field col s4">
+                <i class="material-icons prefix purple-text text-darken-3">star_border</i>
+                <label for="rating">Rating</label>
+                <input id="rating" name="rating" type="number">
+              </div>
+
+            </div> <!-- end row 2 -->
+
+            <div class="row">
+
+              <div class="input-field col s12">
+                <i class="material-icons prefix purple-text text-darken-3">star_border</i>
+                <label for="details">Details</label>
+                <textarea id="details" name="details" class="materialize-textarea"></textarea>
+              </div>
+
+            </div> <!-- end row 3 -->
+
+          </div> <!-- end modal content -->
+
+          <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect pink lighten-5 btn black-text left">Never Mind</a>
+            <button class="waves-effect yellow lighten-1 btn black-text" type="submit">Submit
+              <i class="large material-icons right">thumb_up</i>
+            </button>
+          </div>
+
+        </form>
+
+      </div> <!-- end modal -->
+
+      <!-- sort and show all details not functional yet -->
+
+      <!-- Dropdown Trigger -->
+      <!-- <a class='dropdown-trigger btn yellow lighten-3 black-text right' href='#' data-target='dropdown1'>Sort</a> -->
+
+      <!-- <button class="waves-effect yellow lighten-3 btn black-text right" style="margin-right:15px">Show All -->
+        <!-- Details</button> -->
+
+      <!-- Dropdown Structure -->
+      <ul id='dropdown1' class='dropdown-content'>
+        <li><a href="#!">Type</a></li>
+        <li><a href="#!">Title</a></li>
+        <li><a href="#!">Status</a></li>
+        <li><a href="#!">Rating</a></li>
+      </ul>
+
+      <div class="section"></div>
+
+      <table class="highlight responsive yellow lighten-3">
+
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Rating</th>
+            <th class="right">Delete</th>
+            <th class="right">Info/Edit</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% for (let i=0; i < inventory.length; i++) { %>
+
+            <tr>
+              <td>
+                <%= inventory[i].type %>
+              </td>
+              <td>
+                <%= inventory[i].title %>
+              </td>
+              <td>
+                <% if (inventory[i].status==true) { %> <i
+                    class="material-icons purple-text text-darken-3">radio_button_checked</i>
+                  <% } else if (inventory[i].status==false) { %> <i
+                      class="material-icons purple-text text-darken-3">radio_button_unchecked</i>
+                    <% } %>
+              </td>
+              <td>
+                <% if (inventory[i].rating != null) { %>
+                  <%= inventory[i].rating %> / 10 <% } else { %> <i
+                        class="purple-text text-darken-3">~~</i>
+                      <% } %>
+              </td>
+              <td class="right">
+                <a href="/stuff/item/<%= inventory[i].id %>" class="waves-effect cyan darken-1 waves-light btn">
+                  <i class="material-icons">edit</i></a>
+                <a href="/stuff/item/<%= inventory[i].id %>/delete" class="waves-effect pink lighten-1 waves-light btn">
+                  <i class="material-icons">delete</i></a>
+              </td>
+            </tr>
+
+            <% } %>
+
+        </tbody>
+      </table>
+
+      <div class="section"></div>
+
+    </div>
+
+    <!-- Materialize JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+    <!-- initialize Materialize elements -->
+    <script> M.AutoInit();</script>
+
+</body>
+
+</html>
